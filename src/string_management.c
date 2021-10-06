@@ -12,6 +12,15 @@ int my_memset(char *buffer, char c, int size)
     return index;
 }
 
+char *my_strcpy(char *dest, char *src){
+    while (*src != '\0'){
+        *dest++ = *src++;
+    }
+    *dest = '\0';
+
+    return dest;
+}
+
 char *my_itoa(char *dest, unsigned int number, int size, int base)
 {
     const char symbols[] = "0123456789abcdef";

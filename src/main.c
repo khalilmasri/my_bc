@@ -19,4 +19,5 @@ int main(int argc, char **argv){
     else
         printf("Error\n");
 
+    printf("%d last max priority\n", solving_tree(new_lexer));
 }
