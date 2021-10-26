@@ -36,3 +36,18 @@ int solving_tree(token *token){
     return order_priority(token);
     
 }
+
+/*
+        5 + 5 * 3 + 7 - (8 - 7) 
+        in tree format would be
+        
+                  +
+               /     \
+              5        +
+                     /   \
+                    *     -
+                  /  \   /  \
+                 5    3 7    -
+                            /  \
+                           8    7
+*/
