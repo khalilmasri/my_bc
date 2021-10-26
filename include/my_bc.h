@@ -16,6 +16,14 @@ typedef struct order_list{
     struct order_list *next;
 }order;
 
+//struct AST 
+typedef struct tree_struct{
+    char *type;
+    char *value; //guess numbers can be converted to int when needed later?
+    struct tree_struct *left;
+    struct tree_struct *right;
+} tree;
+
 #define MAX_STR_LEN 10
 #define MAX_TYPE_LEN 10
 
