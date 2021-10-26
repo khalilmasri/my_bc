@@ -72,13 +72,8 @@ char* rpn(char* formula)
     //convert spaced == "5 + 7 - ( 344 - 100 )" into ret == "5 7 + 344 100 - -"
     int i = 0;
     int j = 0;
-    int len = strlen(spaced);
-    int par_count = 0;
-
-    while (i < len) 
-    {
-        
-
+    
+    //START HERE!!!!
 
 
     return ret;
