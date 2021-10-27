@@ -67,11 +67,29 @@ int my_strcmp(char *ptr1, char *ptr2)
     return 0;
 }
 
-int my_is_digit(char c)
-{
-    if (c >= '0' && c <= '9')
-        return 0;
-    else
+//function to check if is digit
+int is_digit(char c) {
+    if (c >= '0' && c <= '9') 
+    {
         return 1;
+    }
+    return 0;
+}
 
+//function to check if is operator
+int is_operator(char c) {
+    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '%') 
+    {
+        return 1;
+    }
+    return 0;
+}
+
+//function to check for parenthesis
+int is_par(char c) {
+    if (c == '(' || c == ')') 
+    {
+        return 1;
+    }
+    return 0;
 }

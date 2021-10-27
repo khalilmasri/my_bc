@@ -2,7 +2,7 @@
 
 int check_consuctive_number(char *str, int index){
 
-    if(my_is_digit(str[index-1]) == 0 && my_is_digit(str[index+1]) == 0)
+    if(is_digit(str[index-1]) == 0 && is_digit(str[index+1]) == 0)
         return 1;
     else
         return 0; 
@@ -58,7 +58,7 @@ token *get_token_attribute(char c, token *token, int index){
             token->priority[index] = PRIORITY_ONE;
             break;
         default:
-            if(my_is_digit(c) == 0){
+            if(is_digit(c) == 0){
                 my_strcpy(token->token_type[index],VAL);
                 token->priority[index] = PRIORITY_FIVE;
             }else 
