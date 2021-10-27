@@ -93,3 +93,39 @@ int is_par(char c) {
     }
     return 0;
 }
+
+//function to add whitespace between operators and operands in the input string
+char* add_whitespace(char* formula) 
+{
+    int i = 0;
+    int j = 0;
+    int len = strlen(formula);
+    char* new_formula = malloc((sizeof(char) * strlen(formula) * 2) + 1);
+    new_formula[j] = formula[i];
+    i++;
+    j++;
+    while (i < len) 
+    {
+        if(formula[i] == ' ')
+            while(formula[i] == ' ')
+                i++;
+        
+        if (is_digit(formula[i]) == 1 && is_digit(formula[i-1]) == 1) 
+        {
+            new_formula[j] = formula[i];
+            i++;
+            j++;
+        }
+        else
+        {
+            new_formula[j] = ' ';
+            j++;
+            new_formula[j] = formula[i];
+            j++;
+            i++;
+        }
+    }
+    new_formula[j] = '\0';
+    return new_formula;
+}
+
