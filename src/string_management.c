@@ -77,7 +77,7 @@ int is_digit(char c) {
 }
 
 //function to check if is operator
-int is_operator(char c) {
+int is_op(char c) {
     if (c == '+' || c == '-' || c == '*' || c == '/' || c == '%') 
     {
         return 1;

@@ -45,7 +45,9 @@ int count_open_closed(char *argv);
 char *my_itoa(char *dest, unsigned int number, int size, int base);
 long my_atoi(char *number_string, int size);
 int my_strcmp(char *ptr1, char *ptr2);
-int my_is_digit(char c);
+int is_digit(char c);
+int is_par(char c);
+int is_op(char c);
 char* my_strcpy(char *dest, char *src);
 
 #endif
