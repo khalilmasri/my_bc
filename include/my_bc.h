@@ -10,11 +10,16 @@ typedef struct tokenizor_struct{
     int token_count;
 } token;
 
-typedef struct order_list{
-    char *method;
+typedef struct rpn{
+    char* token;
+    struct rpn *next;
+}rpn;
+
+typedef struct operators{
+    char* token;
     int priority;
-    struct order_list *next;
-}order;
+    struct operators *next;
+}operators;
 
 //struct AST 
 typedef struct tree_struct{
@@ -24,7 +29,7 @@ typedef struct tree_struct{
     struct tree_struct *right;
 } tree;
 
-#define MAX_STR_LEN 10
+#define MAX_STR_LEN 100
 #define MAX_TYPE_LEN 10
 
 // ------------------------------------------------------------------------------
@@ -49,6 +54,7 @@ int is_digit(char c);
 int is_par(char c);
 int is_op(char c);
 char* my_strcpy(char *dest, char *src);
+char* add_whitespace(char*);
 
 #endif
 
@@ -56,7 +62,6 @@ char* my_strcpy(char *dest, char *src);
 
 #ifndef LEXER_H
 #define LEXER_H
-
 
 #define ADD "ADD"
 #define SUB "SUB"
@@ -77,5 +82,16 @@ char* my_strcpy(char *dest, char *src);
 
 token *get_lexer(char *argv);
 int solving_tree(token *token);
+
+#endif
+
+// -------------------------------------------------------------------------------
+
+#ifndef POSTFIX_H
+#define POSTFIX_H
+
+rpn *get_postfix(token*);
+rpn *add_notation(rpn*,char*);
+operators *add_ops(operators *head, char* value, int priority);
 
 #endif
