@@ -20,10 +20,17 @@ int main(int argc, char **argv)
 
     token *new_lexer = malloc(sizeof(token) * 1);
 
-    if ((new_lexer = get_lexer(argv[1])))
+    char* formula = add_whitespace(argv[1]);
+
+    if ((new_lexer = get_lexer(formula)))
         printf("Success\n");
     else
         printf("Error\n");
 
-    printf("%d last max priority\n", solving_tree(new_lexer));
+
+    if(get_postfix(new_lexer) != NULL)
+        printf("Success\n");
+    else
+        printf("Error\n");
+    /* printf("%d last max priority\n", solving_tree(new_lexer)); */
 }
