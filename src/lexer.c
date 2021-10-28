@@ -98,8 +98,22 @@ token *get_tokens(char *formula, token *token){
     return token;
 }
 
-token *get_lexer(char *formula){
+//print tokens
+void print_tokens(token *token)
+{
+    int i = 0;
+    printf("\n Tokens: ");
+    while(i < token->token_count){
+        printf("%s pr: %d => ", token->tokens[i], token->priority[i]);
+        i++;
+    }
+    printf("\n");
+}
 
+token *get_lexer(char *formula)
+{
+
+    printf("Formula: %s\n", formula);
     token *new_token = malloc(sizeof(token)*1);
 
     if((new_token->token_count = count_tokens(formula)) == -1)

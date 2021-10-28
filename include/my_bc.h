@@ -47,7 +47,7 @@ int count_open_closed(char *argv);
 #ifndef STRING_H
 #define STRING_H
 
-char *my_itoa(char *dest, unsigned int number, int size, int base);
+char *my_itoa(int);
 long my_atoi(char *number_string, int size);
 int my_strcmp(char *ptr1, char *ptr2);
 int is_digit(char c);
@@ -81,7 +81,7 @@ char* add_whitespace(char*);
 #define PRIORITY_FIVE 5
 
 token *get_lexer(char *argv);
-int solving_tree(token *token);
+int solving_tree(rpn*, token*);
 
 #endif
 
