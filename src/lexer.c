@@ -1,5 +1,14 @@
 #include "../include/my_bc.h"
 
+void free_lexer(token *token){
+
+    for(int i = 0; i < token->token_count; i++){
+        free(token->token_type[i]);
+        free(token->tokens[i]);
+    }
+    free(token->priority);
+    free(token);
+}
 int check_consuctive_number(char *str, int index){
 
     if(is_digit(str[index-1]) == 0 && is_digit(str[index+1]) == 0)
@@ -94,12 +103,27 @@ token *get_tokens(char *formula, token *token){
         index++;
         i = 0;
     }
+    free(new_token);
 
     return token;
 }
 
-token *get_lexer(char *formula){
+//print tokens
+void print_tokens(token *token)
+{
+    int i = 0;
+    printf("\n Tokens: ");
+    while(i < token->token_count){
+        printf("%s pr: %d => ", token->tokens[i], token->priority[i]);
+        i++;
+    }
+    printf("\n");
+}
 
+token *get_lexer(char *formula)
+{
+
+    printf("Formula: %s\n", formula);
     token *new_token = malloc(sizeof(token)*1);
 
     if((new_token->token_count = count_tokens(formula)) == -1)

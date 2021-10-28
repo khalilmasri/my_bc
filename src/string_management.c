@@ -21,19 +21,43 @@ char *my_strcpy(char *dest, char *src){
     return dest;
 }
 
-char *my_itoa(char *dest, unsigned int number, int size, int base)
+char *my_itoa(int value)
 {
-    const char symbols[] = "0123456789abcdef";
-    my_memset(dest, '0', size - 1);
-    dest[size - 1] = '\0';
-    size -= 2;
-    while (number)
+    int len;
+    long nbr;
+    char *pointer = NULL;
+    char *base_string = "0123456789ABCDEF";
+
+    if (value == 0)
     {
-        dest[size] = symbols[number % base];
-        number /= base;
-        size--;
+        pointer[0] = '0';
+        return pointer;
     }
-    return dest;
+    len = 0;
+    nbr = value;
+    while (nbr) //this loop sets the length of the string
+    {
+        nbr /= 10;
+        len += 1;
+    }
+    nbr = value;
+    if (nbr < 0) //this increases the length of the string to add the '-' character
+    {
+        len += 1;
+        nbr *= -1;
+    }
+    if (!(pointer = (char *)malloc(sizeof(char) * len + 1)))
+        return (NULL);
+    pointer[len] = '\0'; //sets the last character to NULL
+    while (nbr)          //This loop fills the character string from the end to the beginning.
+    {
+        pointer[--len] = base_string[nbr % 10];
+        nbr /= 10;
+    }
+    if (value < 0) //Sets the first character to '-' if the value is negative
+        pointer[0] = '-';
+
+    return (pointer);
 }
 
 long my_atoi(char *number_string, int size)
