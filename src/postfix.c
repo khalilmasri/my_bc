@@ -71,7 +71,7 @@ void print_ops(operators *head){
 void print_notation(rpn *head){
 
     while(head){
-        printf("%s\n", head->token);
+        printf("%s ", head->token);
         head = head->next;
     }
 
