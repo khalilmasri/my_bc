@@ -1,5 +1,20 @@
 #include "../include/my_bc.h"
 
+//function to free the notation list
+void free_notation(rpn *head)
+{
+
+    rpn *temp;
+
+    while (head != NULL)
+    {
+        temp = head;
+        head = head->next;
+        free(temp->token);
+        free(temp);
+    }
+}
+
 //function to add value to rpn beginning of list
 rpn *add_notation(rpn *head, char *value)
 {

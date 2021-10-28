@@ -1,20 +1,5 @@
 #include "../include/my_bc.h"
 
-//function to free the notation list
-void free_notation(rpn *head)
-{
-
-    rpn *temp;
-
-    while (head != NULL)
-    {
-        temp = head;
-        head = head->next;
-        free(temp->token);
-        free(temp);
-    }
-}
-
 int main(int argc, char **argv)
 {
 
@@ -50,8 +35,6 @@ int main(int argc, char **argv)
 
     printf("result: %d\n", solving_tree(rpn, new_lexer));
     free_notation(rpn);
-
-
 
     return 0;
 }

@@ -3,26 +3,30 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct tokenizor_struct{
+typedef struct tokenizor_struct
+{
     char **tokens;
     char **token_type;
     int *priority;
     int token_count;
 } token;
 
-typedef struct rpn{
-    char* token;
+typedef struct rpn
+{
+    char *token;
     struct rpn *next;
-}rpn;
+} rpn;
 
-typedef struct operators{
-    char* token;
+typedef struct operators
+{
+    char *token;
     int priority;
     struct operators *next;
-}operators;
+} operators;
 
-//struct AST 
-typedef struct tree_struct{
+//struct AST
+typedef struct tree_struct
+{
     char *type;
     char *value; //guess numbers can be converted to int when needed later?
     struct tree_struct *left;
@@ -53,8 +57,8 @@ int my_strcmp(char *ptr1, char *ptr2);
 int is_digit(char c);
 int is_par(char c);
 int is_op(char c);
-char* my_strcpy(char *dest, char *src);
-char* add_whitespace(char*);
+char *my_strcpy(char *dest, char *src);
+char *add_whitespace(char *);
 
 #endif
 
@@ -81,7 +85,7 @@ char* add_whitespace(char*);
 #define PRIORITY_FIVE 5
 
 token *get_lexer(char *argv);
-int solving_tree(rpn*, token*);
+int solving_tree(rpn *, token *);
 
 #endif
 
@@ -90,8 +94,9 @@ int solving_tree(rpn*, token*);
 #ifndef POSTFIX_H
 #define POSTFIX_H
 
-rpn *get_postfix(token*);
-rpn *add_notation(rpn*,char*);
-operators *add_ops(operators *head, char* value, int priority);
+void free_notation(rpn *);
+rpn *get_postfix(token *);
+rpn *add_notation(rpn *, char *);
+operators *add_ops(operators *head, char *value, int priority);
 
 #endif
