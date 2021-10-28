@@ -8,7 +8,6 @@ int my_memset(char *buffer, char c, int size)
         buffer[index] = c;
         index += 1;
     }
-    
     return index;
 }
 
@@ -21,43 +20,63 @@ char *my_strcpy(char *dest, char *src){
     return dest;
 }
 
-char *my_itoa(int value)
+void my_reverse(char str[], int len)
 {
-    int len;
-    long nbr;
-    char *pointer = NULL;
-    char *base_string = "0123456789ABCDEF";
+    int start, end;
+    char temp;
+    for (start = 0, end = len - 1; start < end; start++, end--)
+    {
+        temp = *(str + start);
+        *(str + start) = *(str + end);
+        *(str + end) = temp;
+    }
+}
 
-    if (value == 0)
-    {
-        pointer[0] = '0';
-        return pointer;
-    }
-    len = 0;
-    nbr = value;
-    while (nbr) //this loop sets the length of the string
-    {
-        nbr /= 10;
-        len += 1;
-    }
-    nbr = value;
-    if (nbr < 0) //this increases the length of the string to add the '-' character
-    {
-        len += 1;
-        nbr *= -1;
-    }
-    if (!(pointer = (char *)malloc(sizeof(char) * len + 1)))
-        return (NULL);
-    pointer[len] = '\0'; //sets the last character to NULL
-    while (nbr)          //This loop fills the character string from the end to the beginning.
-    {
-        pointer[--len] = base_string[nbr % 10];
-        nbr /= 10;
-    }
-    if (value < 0) //Sets the first character to '-' if the value is negative
-        pointer[0] = '-';
+char *my_itoa(int number, char *string) //to convert my signed decimal to string
+{
+    int i = 0;
+    int negative_num = 0;
 
-    return (pointer);
+    //if 0, print "0" string
+    if (number == 0)
+    {
+        string[i] = '0';
+        string[i + 1] = '\0';
+        return string;
+    }
+
+    //if base decimal and negative, otherwise ignore sign.
+    if (number < 0)
+    {
+        negative_num = 1;
+        number = -number;
+    }
+
+    while (number != 0)
+    {
+        unsigned int remainder = number % 10;
+        if (remainder > 9)
+        {
+            string[i++] = (remainder - 10) + 'a';
+        }
+        else
+        {
+            string[i++] = remainder + '0';
+        }
+        number = number / 10;
+    }
+
+    /* Append negative sign for negative numbers */
+    if (negative_num)
+    {
+        string[i++] = '-';
+    }
+
+    string[i] = '\0';
+
+    my_reverse(string, i);
+
+    return string;
 }
 
 long my_atoi(char *number_string, int size)
@@ -118,16 +137,23 @@ int is_par(char c) {
     return 0;
 }
 
+int is_char(char c) {
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) 
+    {
+        return 1;
+    }
+    return 0;
+}
+
+
 //function to add whitespace between operators and operands in the input string
 char* add_whitespace(char* formula) 
 {
-    int i = 0;
-    int j = 0;
+    int i = 0, j = 0;
     int len = strlen(formula);
     char* new_formula = malloc((sizeof(char) * strlen(formula) * 2) + 1);
     new_formula[j] = formula[i];
-    i++;
-    j++;
+    i++, j++;
     while (i < len) 
     {
         if(formula[i] == ' ')
@@ -148,7 +174,7 @@ char* add_whitespace(char* formula)
             j++;
             i++;
         }
-    }
+    }    
     new_formula[j] = '\0';
     return new_formula;
 }

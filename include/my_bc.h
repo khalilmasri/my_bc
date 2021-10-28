@@ -53,12 +53,13 @@ int check_formula(char*);
 #ifndef STRING_H
 #define STRING_H
 
-char *my_itoa(int);
+char *my_itoa(int, char*);
 long my_atoi(char *number_string, int size);
 int my_strcmp(char *ptr1, char *ptr2);
 int is_digit(char c);
 int is_par(char c);
 int is_op(char c);
+int is_char(char c);
 char *my_strcpy(char *dest, char *src);
 char *add_whitespace(char *);
 

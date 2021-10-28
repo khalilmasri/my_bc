@@ -20,7 +20,7 @@ rpn *add_notation(rpn *head, char *value)
     rpn *new_node = malloc(sizeof(rpn));
     new_node->token = malloc(sizeof(char) * (strlen(value) + 1));
 
-    if(head == NULL)
+    if (head == NULL)
     {
         strcpy(new_node->token, value);
         new_node->next = NULL;
@@ -41,7 +41,7 @@ operators *add_ops(operators *head, char *value, int priority)
     operators *new_node = malloc(sizeof(operators));
     new_node->token = malloc(sizeof(char) * (strlen(value) + 1));
 
-    if(head == NULL)
+    if (head == NULL)
     {
         strcpy(new_node->token, value);
         new_node->priority = priority;
@@ -62,7 +62,7 @@ operators *add_ops(operators *head, char *value, int priority)
 operators *remove_ops(operators *head)
 {
     //if head is null, return null
-    if(head == NULL)
+    if (head == NULL)
     {
         printf("ops list is empty\n");
         return (NULL);
@@ -79,11 +79,11 @@ operators *remove_ops(operators *head)
 void free_ops(operators *head)
 {
     //if head is null, return null
-    if(head == NULL)
+    if (head == NULL)
     {
         return;
     }
-    while(head)
+    while (head)
     {
         head = remove_ops(head);
     }
@@ -93,8 +93,10 @@ void free_ops(operators *head)
 rpn *reverse_notation(rpn *head)
 {
 
-    if(head == NULL) return NULL;
-    if(head->next == NULL) return head;
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL)
+        return head;
 
     rpn *reversed = reverse_notation(head->next);
 
@@ -121,7 +123,7 @@ void print_ops(operators *head)
 }
 void print_notation(rpn *head)
 {
-    if(head == NULL)
+    if (head == NULL)
     {
         printf("Notation is empty\n");
         return;
@@ -134,22 +136,22 @@ void print_notation(rpn *head)
         head = head->next;
     }
     printf("\n");
-
 }
 
-int search_stack(operators *ops, int priority){
+int search_stack(operators *ops, int priority)
+{
 
-    if(!ops)
+    if (!ops)
         return 0;
 
-    while(ops){
-        if(ops->priority == priority)
+    while (ops)
+    {
+        if (ops->priority == priority)
             return 1;
-        else if(ops->priority == 4)
+        else if (ops->priority == 4)
             return 0;
         ops = ops->next;
     }
-
     return 0;
 }
 
@@ -160,9 +162,7 @@ rpn *get_postfix(token *token)
     operators *ops = malloc(sizeof(operators));
     ops = NULL;
     bool mod = false;
-    int pars = 0;
-
-    int i = 0;
+    int pars = 0, i = 0;
 
     while (i < token->token_count)
     {
@@ -171,9 +171,12 @@ rpn *get_postfix(token *token)
 
         else if (token->priority[i] != PRIORITY_ONE)
         {
-            if((search_stack(ops, token->priority[i])) == 1){
-                while((search_stack(ops, token->priority[i])) == 1){
-                    if(strcmp(token->token_type[i],MOD) == 0){
+            if ((search_stack(ops, token->priority[i])) == 1)
+            {
+                while ((search_stack(ops, token->priority[i])) == 1)
+                {
+                    if (strcmp(token->token_type[i], MOD) == 0)
+                    {
                         notations = add_notation(notations, token->tokens[i]);
                         mod = true;
                         break;
@@ -181,19 +184,21 @@ rpn *get_postfix(token *token)
                     notations = add_notation(notations, ops->token);
                     ops = remove_ops(ops);
                 }
-                if(mod == false) 
+                if (mod == false)
                     ops = add_ops(ops, token->tokens[i], token->priority[i]);
                 else
                     mod = false;
             }
-            else{
+            else
+            {
                 ops = add_ops(ops, token->tokens[i], token->priority[i]);
             }
         }
         else
         {
             pars++; //take closed parenthesis off token count
-            while(ops->priority != 4){
+            while (ops->priority != 4)
+            {
                 if (ops == NULL)
                 {
                     print_error("parentheses");
@@ -201,7 +206,6 @@ rpn *get_postfix(token *token)
                 }
                 notations = add_notation(notations, ops->token);
                 ops = remove_ops(ops);
-
             }
             pars++; //take open parenthesis off token
             ops = remove_ops(ops);

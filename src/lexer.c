@@ -91,7 +91,8 @@ token *get_tokens(char *formula, token *token){
     char* new_token = malloc(sizeof(char)*MAX_STR_LEN);
 
     while(formula[index] != '\0'){
-        while(formula[index] != ' ' && formula[index] != '\0'){
+        while(formula[index] != ' ' && formula[index] != '\0')
+        {
             new_token[i] = formula[index];
             index++;
             i++;

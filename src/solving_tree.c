@@ -28,7 +28,6 @@ int sub(int a, int b)
 
 void print_stack(char **stack, int stack_size)
 {
-
     int i;
 
     for (i = 0; i < stack_size; i++)
@@ -41,6 +40,7 @@ void print_stack(char **stack, int stack_size)
 int restack(char **stack, char type, int i, int count)
 {
     int (*funcPtr)(int, int);
+
     if (type == '*')
         funcPtr = mult;
     else if (type == '/')
@@ -53,14 +53,12 @@ int restack(char **stack, char type, int i, int count)
         funcPtr = sub;
 
     int j = i - 2;
-
-    if(funcPtr == divide && atoi(stack[i-1]) == 0){
-        printf("Numbers can't be devided on 0.\n");
+    if ((funcPtr == divide || funcPtr == mod || funcPtr == mult) && atoi(stack[i - 1]) == 0)
+    {
+        printf("Error: *, /, %% by zero not possible.\n");
         return 0;
     }
-
-    stack[j] = my_itoa((*funcPtr)(atoi(stack[i - 2]), atoi(stack[i - 1])));
-    //printf("%s, \n", stack[j]);
+    my_itoa((*funcPtr)(atoi(stack[j]), atoi(stack[i - 1])), stack[j]);
     i++, j++;
     while (i < count)
     {
@@ -92,19 +90,17 @@ int solving_tree(rpn *rpn, token *token)
 {
     int count = token->token_count;
     char *stack[count];
-    int i = 0;
-
     *stack = init_stack(rpn, stack, count);
+    int i = 0;
     /* printf("print inititalized and filled stack\n"); */
     /* print_stack(stack, count); */
-
     while (count > 1) // count will count down til 1 string remains;
     {
         while (i < count) // i will count up til count;
         {
-            if (is_op(stack[i][0]) == 1)
+            if (is_op(stack[i][0]) == 1 && stack[i][1] == '\0') //make sure not negative number
             {
-                if(restack(stack, stack[i][0], i, count) == 0)
+                if (restack(stack, stack[i][0], i, count) == 0)
                     return 0;
                 count -= 2, i = 0;
                 /* print_stack(stack, count); */
