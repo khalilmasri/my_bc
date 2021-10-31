@@ -144,7 +144,4 @@ token *get_lexer(char *formula)
 
     if(!new_token)
         return NULL;
-
-    return new_token;
-}
-
+return new_token; }
