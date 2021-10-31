@@ -55,7 +55,7 @@ int check_formula(char *formula)
         }
         if (is_char(formula[i]) == 1)
         {
-            printf("Error: Unknown Lexeme.\n");
+            printf("Error: Syntax Error.\n");
             return 0;
         }
         if (is_op(formula[i]) == 1 && is_op(formula[i + 2]) == 1)
