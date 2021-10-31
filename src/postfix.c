@@ -78,7 +78,6 @@ operators *remove_ops(operators *head)
 
 void free_ops(operators *head)
 {
-    //if head is null, return null
     if (head == NULL)
     {
         return;
@@ -87,7 +86,6 @@ void free_ops(operators *head)
     {
         head = remove_ops(head);
     }
-    //printf("Ops list freed\n");
 }
 
 rpn *reverse_notation(rpn *head)
@@ -104,22 +102,6 @@ rpn *reverse_notation(rpn *head)
     head->next = NULL;
 
     return reversed;
-}
-
-void print_ops(operators *head)
-{
-    if (head == NULL)
-    {
-        printf("ops is empty\n");
-        return;
-    }
-    printf("\nOps list: ");
-    while (head != NULL)
-    {
-        printf("%s ", head->token);
-        head = head->next;
-    }
-    printf("\n");
 }
 void print_notation(rpn *head)
 {
@@ -158,10 +140,8 @@ int search_stack(operators *ops, int priority)
 rpn *get_postfix(token *token)
 {
     rpn *notations = malloc(sizeof(rpn));
-    notations = NULL;
     operators *ops = malloc(sizeof(operators));
-    ops = NULL;
-    bool mod = false;
+    notations = NULL, ops = NULL;
     int pars = 0, i = 0;
 
     while (i < token->token_count)
@@ -169,25 +149,14 @@ rpn *get_postfix(token *token)
         if (token->priority[i] == PRIORITY_FIVE)
             notations = add_notation(notations, token->tokens[i]);
 
-        else if (token->priority[i] != PRIORITY_ONE)
-        {
-            if ((search_stack(ops, token->priority[i])) == 1)
-            {
+        else if (token->priority[i] != PRIORITY_ONE){
+            if ((search_stack(ops, token->priority[i])) == 1){
                 while ((search_stack(ops, token->priority[i])) == 1)
                 {
-                    if (strcmp(token->token_type[i], MOD) == 0)
-                    {
-                        notations = add_notation(notations, token->tokens[i]);
-                        mod = true;
-                        break;
-                    }
                     notations = add_notation(notations, ops->token);
                     ops = remove_ops(ops);
                 }
-                if (mod == false)
                     ops = add_ops(ops, token->tokens[i], token->priority[i]);
-                else
-                    mod = false;
             }
             else
             {
